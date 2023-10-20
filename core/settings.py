@@ -5,6 +5,8 @@ ENV = os.environ.get('ENV', 'DEVELOPMENT').upper()
 
 Console.log("=====> ENV : %s <=====" % ENV, Console.HEADER)
 
+load_dotenv_file('.env')
+
 if ENV == "DEVELOPMENT":
     load_dotenv_file('.env.development')
     from core.conf.settings_dev import *
