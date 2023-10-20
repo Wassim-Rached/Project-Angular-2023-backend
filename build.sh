@@ -2,8 +2,8 @@
 
 set -o errexit  # exit on error
 
-pip install -r requirements.prod.txt
+make pip-install-prod
 
-python manage.py collectstatic --no-input
+make collect-static
 
-python manage.py migrate
+make m-prod
