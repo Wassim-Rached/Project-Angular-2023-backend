@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 
 # 
-from .models import CustomUser
-from .serializers import CustomUserSerializer
+from .models import CustomUser,Account
+from .serializers import CustomUserSerializer,AccountSerializer
 from .permissions import IsAdminOrSelf
 
 
@@ -20,3 +20,9 @@ class CustomUserViewSet(viewsets.ModelViewSet):
             # Use the custom permission class to determine if a user can update or delete
             return [IsAdminOrSelf()]
         return super().get_permissions()
+
+
+class AccountViewSet(viewsets.ModelViewSet):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+    permission_classes = [permissions.AllowAny]
