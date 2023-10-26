@@ -2,4 +2,4 @@
 
 ## database diagram
 
-![diagram photo]('design/drawSQL-project-angular-2023-db.png')
+![diagram photo]('./design/drawSQL-project-angular-2023-db.png')
