@@ -40,6 +40,28 @@ class Activity(models.Model):
 	def number_of_likes(self):
 		return self.likes.count()
 
+	def isLikedBy(self, account):
+		return self.likes.filter(id=account.id).exists()
+	
+	def toogle_like(self,account):
+		if self.isLikedBy(account):
+			return self.unLike(account)
+		else:
+			return self.like(account)
+
+	def like(self,account):
+		try:
+			ActivityLike.objects.create(liked_activity=self,liked_by=account)
+			return True
+		except:
+			return None
+
+	def unLike(self, account):
+		try:
+			ActivityLike.objects.get(liked_activity=self, liked_by=account).delete()
+			return True
+		except:
+			return None
 
 	def __str__(self):
 		return self.title
@@ -81,12 +103,13 @@ class ActivityRegistration(models.Model):
 	activity = models.ForeignKey(Activity, on_delete=models.CASCADE,blank=False, null=False,)
 	status = models.CharField(max_length=8,default=STATUS_CHOICES[0][0],blank=True,null=False,choices=STATUS_CHOICES)
 	is_payed = models.BooleanField(default=False,null=False,blank=True)
-	
+
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)  
 
 	class Meta:
 		unique_together = ('account', 'activity')
+
 
 	def acceptActivitieRegistration(self):
 		if self.status != self.STATUS_CHOICES[1][0]:

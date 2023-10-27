@@ -24,6 +24,13 @@ class ActivityViewSet(viewsets.ModelViewSet):
 		if self.action == 'list':
 			return ListActivitiesSerializer
 		return DetailActivitiesSerializer
+	
+	@action(detail=True, methods=['POST'], url_name='toogle-like', permission_classes=[IsAdminUser])
+	def toogle_like(self, request, pk=None):
+		activity = self.get_object()
+		account = request.user.account
+		activity.toogle_like(account)
+		return Response({"is_liked": activity.isLikedBy(request.user.account)})
 
 
 class ActivityRegistrationViewSet(viewsets.ModelViewSet):
@@ -55,7 +62,6 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
 			)
 		
 		return super().update(request, *args, **kwargs)
-	
 
 	@action(detail=True, methods=['POST'], url_name='accept', permission_classes=[IsAdminUser])
 	def accept(self, request, pk=None):
