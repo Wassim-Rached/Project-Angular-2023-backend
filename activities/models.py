@@ -89,12 +89,24 @@ class ActivityRegistration(models.Model):
 		unique_together = ('account', 'activity')
 
 	def acceptActivitieRegistration(self):
-		self.status = self.STATUS_CHOICES[1][0]
-		self.save()
+		if self.status != self.STATUS_CHOICES[1][0]:
+			self.status = self.STATUS_CHOICES[1][0]
+			self.save()
 
 	def rejectActivitieRegistration(self):
-		self.status = self.STATUS_CHOICES[2][0]
-		self.save()
+		if self.status != self.STATUS_CHOICES[2][0]:
+			self.status = self.STATUS_CHOICES[2][0]
+			self.save()
+
+	def payRegistration(self):
+		if not self.is_payed:
+			self.is_payed = True
+			self.save()
+
+	def unPayRegistration(self):
+		if self.is_payed:
+			self.is_payed = False;
+			self.save()
 
 	def __str__(self):
 		return str(self.account) + ' registred to ' + str(self.activity)

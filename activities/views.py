@@ -52,19 +52,31 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
 			return Response(
                 {"detail": "Non-admin users are not allowed to update ActivityRegistrations."},
 				status=status.HTTP_403_FORBIDDEN
-				)
+			)
 		
 		return super().update(request, *args, **kwargs)
 	
 
 	@action(detail=True, methods=['POST'], url_name='accept', permission_classes=[IsAdminUser])
-	def accept_registration(self, request, pk=None):
+	def accept(self, request, pk=None):
 		activity_registration = self.get_object()
 		activity_registration.acceptActivitieRegistration()
 		return Response({"status": activity_registration.status})
 
 	@action(detail=True, methods=['POST'], url_name='reject', permission_classes=[IsAdminUser])
-	def reject_registration(self, request, pk=None):
+	def reject(self, request, pk=None):
 		activity_registration = self.get_object()
 		activity_registration.rejectActivitieRegistration()
 		return Response({"status": activity_registration.status})
+	
+	@action(detail=True, methods=['POST'], url_name='pay', permission_classes=[IsAdminUser])
+	def pay(self, request, pk=None):
+		activity_registration = self.get_object()
+		activity_registration.payRegistration()
+		return Response({"is_payed": activity_registration.is_payed})
+
+	@action(detail=True, methods=['POST'], url_name='unpay', permission_classes=[IsAdminUser])
+	def unpay(self, request, pk=None):
+		activity_registration = self.get_object()
+		activity_registration.unPayRegistration()
+		return Response({"is_payed": activity_registration.is_payed})
