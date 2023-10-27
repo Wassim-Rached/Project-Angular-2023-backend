@@ -1,5 +1,11 @@
 from rest_framework import permissions
 
+class IsAdminUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_admin:
+            return True
+        return False
+
 class IsAdminOrSelf(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Allow admin users to perform any action
