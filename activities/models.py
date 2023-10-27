@@ -34,11 +34,7 @@ class Activity(models.Model):
 
 	@property
 	def activity_registrations(self):
-		return ActivityRegistration.objects.filter(activity_id=self)
-
-	@property
-	def number_of_participants(self):
-		return ActivityRegistration.objects.filter(activity=self).count()
+		return ActivityRegistration.objects.filter(activity=self)
 
 	@property
 	def number_of_likes(self):
@@ -75,18 +71,30 @@ class ActivityLike(models.Model):
 
 
 class ActivityRegistration(models.Model):
+	STATUS_CHOICES = (
+		('pending', 'Pending'),
+		('accepted', 'Accepted'),
+		('rejected', 'Rejected'),
+	)
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	account = models.ForeignKey(Account, on_delete=models.CASCADE,blank=False,null=False)
 	activity = models.ForeignKey(Activity, on_delete=models.CASCADE,blank=False, null=False,)
-	status = models.BooleanField(default=False,null=False,blank=True)
+	status = models.CharField(max_length=8,default=STATUS_CHOICES[0][0],blank=True,null=False,choices=STATUS_CHOICES)
 	is_payed = models.BooleanField(default=False,null=False,blank=True)
 	
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)  
 
-
 	class Meta:
 		unique_together = ('account', 'activity')
+
+	def acceptActivitieRegistration(self):
+		self.status = self.STATUS_CHOICES[1][0]
+		self.save()
+
+	def rejectActivitieRegistration(self):
+		self.status = self.STATUS_CHOICES[2][0]
+		self.save()
 
 	def __str__(self):
 		return str(self.account) + ' registred to ' + str(self.activity)
