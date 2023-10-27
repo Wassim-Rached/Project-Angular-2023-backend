@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Category,Activity,ActivityRegistration
+from accounts.serializers import AccountSerializer
 
 class CategoriesSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -7,20 +8,11 @@ class CategoriesSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 
-class ActivityRegistrationSerializer(serializers.ModelSerializer):
-	username = serializers.ReadOnlyField(source='account.user.username')
-
-	class Meta:
-		model = ActivityRegistration
-		fields = ['id','username','is_accepted']
-
-
 class DetailActivitiesSerializer(serializers.ModelSerializer):
-	number_of_participants = serializers.ReadOnlyField()
 	number_of_likes = serializers.ReadOnlyField()
 	have_ended = serializers.ReadOnlyField()
 	categories = CategoriesSerializer(many=True)
-	activity_registrations = ActivityRegistrationSerializer(many=True, read_only=True)
+	# activity_registrations = NonAdminActivityRegistrationSerializer(many=True, read_only=True)
 
 	class Meta:
 		model = Activity
@@ -40,6 +32,7 @@ class DetailActivitiesSerializer(serializers.ModelSerializer):
 
 		return activity
 
+
 class ListActivitiesSerializer(serializers.ModelSerializer):
 	number_of_likes = serializers.ReadOnlyField()
 	categories = CategoriesSerializer(many=True,read_only=True)
@@ -47,3 +40,34 @@ class ListActivitiesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Activity
 		fields = ['id','number_of_likes','categories','title','photo','is_free']
+
+
+class AdminActivityRegistrationSerializer(serializers.ModelSerializer):
+	username = serializers.ReadOnlyField(source='account.user.username')
+
+	class Meta:
+		model = ActivityRegistration
+		fields = '__all__'
+
+
+class NonAdminActivityRegistrationSerializer(serializers.ModelSerializer):
+	is_payed = serializers.ReadOnlyField()
+	status = serializers.ReadOnlyField()
+	activity = ListActivitiesSerializer
+
+	class Meta:
+		model = ActivityRegistration
+		exclude = ['account']
+
+	def create(self, validated_data):
+		# Get the user's account from the request
+		account = self.context['request'].user.account
+
+		# Try to get an existing ActivityRegistration or create a new one if it doesn't exist
+		activity_registration, created = ActivityRegistration.objects.get_or_create(
+			account=account,
+			activity=validated_data['activity']
+		)
+
+		return activity_registration
+	
