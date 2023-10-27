@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     # apps
     'accounts',
 	'authentication',
-	'api',
+	'activities',
+    'api',
 	
     # packages
     'rest_framework',
