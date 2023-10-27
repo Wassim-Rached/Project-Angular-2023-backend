@@ -23,9 +23,9 @@ class Activity(models.Model):
 	max_participants = models.IntegerField(null=True,blank=True)
 	date = models.DateField(null=False,blank=False)
 
-	categories = models.ManyToManyField(Category, blank=True, null=True, related_name='activities', through='ActivityCategory')
-	likes = models.ManyToManyField(Account, blank=True, null=True, related_name='liked_activites', through='ActivityLikes')
-	accounts_registrations = models.ManyToManyField(Account, blank=True, null=True,related_name='activities_registrations', through='ActivityRegistration')
+	categories = models.ManyToManyField(Category, blank=True, related_name='activities', through='ActivityCategory')
+	likes = models.ManyToManyField(Account, blank=True,  related_name='liked_activites', through='ActivityLike')
+	accounts_registrations = models.ManyToManyField(Account, blank=True,related_name='activities_registrations', through='ActivityRegistration')
 	
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)    
@@ -48,7 +48,7 @@ class ActivityCategory(models.Model):
 
 
 
-class ActivityLikes(models.Model):
+class ActivityLike(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	liked_by = models.ForeignKey(Account, on_delete=models.CASCADE)
 	liked_activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
