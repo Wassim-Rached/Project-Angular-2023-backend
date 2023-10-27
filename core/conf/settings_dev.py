@@ -39,7 +39,8 @@ INSTALLED_APPS = [
 	
     # packages
     'rest_framework',
-	'rest_framework_simplejwt'
+	'rest_framework_simplejwt',
+	'django_filters'
 ]
 
 MIDDLEWARE = [

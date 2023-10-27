@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action,permission_classes
 from authentication.permissions import IsAdminOrReadOnly,IsAdminUser
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -19,6 +20,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
 	queryset = Activity.objects.all()
 	permission_classes = [IsAdminOrReadOnly]
 	serializer_class = ListActivitiesSerializer
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['title','categories__name', 'is_free']
 
 	def get_serializer_class(self):
 		if self.action == 'list':
@@ -31,6 +34,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
 		account = request.user.account
 		activity.toogle_like(account)
 		return Response({"is_liked": activity.isLikedBy(request.user.account)})
+
+	
 
 
 class ActivityRegistrationViewSet(viewsets.ModelViewSet):

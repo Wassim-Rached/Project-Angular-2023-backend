@@ -28,7 +28,7 @@ class Activity(models.Model):
 	categories = models.ManyToManyField(Category, blank=True, related_name='activities', through='ActivityCategory')
 	likes = models.ManyToManyField(Account, blank=True,  related_name='liked_activites', through='ActivityLike')
 	registred_accounts = models.ManyToManyField(Account, blank=True,related_name='activities_registrations', through='ActivityRegistration')
-	
+
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)    
 
