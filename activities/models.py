@@ -1,6 +1,8 @@
-import uuid
 from django.db import models
 from django.conf import settings
+from datetime import timezone
+import uuid
+
 from accounts.models import Account
 
 class Category(models.Model):
@@ -25,10 +27,22 @@ class Activity(models.Model):
 
 	categories = models.ManyToManyField(Category, blank=True, related_name='activities', through='ActivityCategory')
 	likes = models.ManyToManyField(Account, blank=True,  related_name='liked_activites', through='ActivityLike')
-	accounts_registrations = models.ManyToManyField(Account, blank=True,related_name='activities_registrations', through='ActivityRegistration')
+	registred_accounts = models.ManyToManyField(Account, blank=True,related_name='activities_registrations', through='ActivityRegistration')
 	
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)    
+
+	@property
+	def activity_registrations(self):
+		return ActivityRegistration.objects.filter(activity_id=self)
+
+	@property
+	def number_of_participants(self):
+		return ActivityRegistration.objects.filter(activity=self).count()
+
+	@property
+	def number_of_likes(self):
+		return self.likes.count()
 
 
 	def __str__(self):
@@ -64,7 +78,7 @@ class ActivityRegistration(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	account = models.ForeignKey(Account, on_delete=models.CASCADE,blank=False,null=False)
 	activity = models.ForeignKey(Activity, on_delete=models.CASCADE,blank=False, null=False,)
-	is_accepted = models.BooleanField(default=False,null=False,blank=True)
+	status = models.BooleanField(default=False,null=False,blank=True)
 	is_payed = models.BooleanField(default=False,null=False,blank=True)
 	
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)

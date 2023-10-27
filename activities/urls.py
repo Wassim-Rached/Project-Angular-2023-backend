@@ -6,5 +6,5 @@ app_name = 'activities'
 
 
 urlpatterns = [
-	...
+    path('', include(router.urls)),
 ]

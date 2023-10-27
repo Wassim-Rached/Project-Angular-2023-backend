@@ -4,7 +4,7 @@ from rest_framework import permissions
 # 
 from .models import CustomUser,Account
 from .serializers import CustomUserSerializer,AccountSerializer
-from .permissions import IsAdminOrSelf
+from authentication.permissions import IsAdminOrSelf
 
 
 class CustomUserViewSet(viewsets.ModelViewSet):

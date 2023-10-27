@@ -16,3 +16,18 @@ class IsAdminOrSelf(permissions.BasePermission):
 
         # Allow users to update or delete their own account
         return obj == request.user
+
+
+
+class IsAdminOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Check if the request method is a safe method (GET, HEAD, or OPTIONS)
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Check if the user is authenticated and is an admin
+        if request.user.is_authenticated:
+            return request.user.is_admin;
+
+        # If neither of the above conditions is met, deny access
+        return False
