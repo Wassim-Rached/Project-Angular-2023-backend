@@ -149,3 +149,6 @@ REST_FRAMEWORK = {
 SWAGGER_SETTINGS = {
     "VALIDATOR_URL": "http://localhost:8189",
 }
+
+API_BASE_URL = "http://localhost:8000"
+DEFAULT_ACCOUNT_PHOTO_URL = "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"

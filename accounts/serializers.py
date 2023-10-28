@@ -39,22 +39,27 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class AccountSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="user.username")
+    get_photo_url = serializers.ReadOnlyField()
 
     class Meta:
         model = Account
         fields = "__all__"
+        kwargs = {"photo": {"write_only": True}}
 
 
 class ListAccountSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
+    get_photo_url = serializers.ReadOnlyField()
 
     class Meta:
         model = Account
         fields = "__all__"
+        kwargs = {"photo": {"write_only": True}}
 
 
 class MainAccountSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(many=False)
+    get_photo_url = serializers.ReadOnlyField()
 
     class Meta:
         model = Account

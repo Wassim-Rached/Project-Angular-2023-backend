@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from .views import AccountPhotoView
+from .views import AccountPhotoView, ActivityPhotoView
 
 
 schema_view = get_schema_view(
@@ -23,7 +23,16 @@ urlpatterns = [
     path("authentication/", include("authentication.urls")),
     path("activities/", include("activities.urls")),
     #
-    path("photo/<uuid:pk>/", AccountPhotoView.as_view(), name="account-photo-detail"),
+    path(
+        "photo/account/<uuid:pk>/",
+        AccountPhotoView.as_view(),
+        name="account-photo-detail",
+    ),
+    path(
+        "photo/activity/<uuid:pk>/",
+        ActivityPhotoView.as_view(),
+        name="activity-photo-detail",
+    ),
     #
     path(
         "swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"
