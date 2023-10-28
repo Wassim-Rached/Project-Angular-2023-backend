@@ -1,5 +1,6 @@
+from .models import CustomUser, Account, JoinClubForm
 from rest_framework import serializers
-from .models import CustomUser, Account
+from django.db import IntegrityError
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -127,3 +128,25 @@ class SimpleAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ["id", "username", "photo"]
+
+
+class JoinClubFormSerializer(serializers.ModelSerializer):
+    account = SimpleAccountSerializer(many=False, read_only=True)
+    status = serializers.ReadOnlyField()
+
+    class Meta:
+        model = JoinClubForm
+        fields = "__all__"
+
+    def create(self, validated_data):
+        account = self.context["request"].user.account
+        validated_data["account"] = account  # Ensure the account is set
+
+        try:
+            instance = JoinClubForm.objects.create(**validated_data)
+        except IntegrityError as e:
+            raise serializers.ValidationError(
+                "You have already submitted a join club form."
+            )
+
+        return instance

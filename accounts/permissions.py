@@ -17,3 +17,16 @@ class IsAdminOrAccountOwnerOrReadOnly(permissions.BasePermission):
                 return True
 
         return False
+
+
+class IsAdminOrJoinClubFormOwner(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            return True
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_admin:
+            return True
+
+        return obj.account == request.user.account

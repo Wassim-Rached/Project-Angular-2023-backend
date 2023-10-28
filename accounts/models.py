@@ -77,6 +77,16 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def setToMember(self):
+        if not self.role in ["admin", "member"]:
+            self.role = "member"
+            self.save()
+
+    def unsetMember(self):
+        if not self.role == "admin":
+            self.role = "user"
+            self.save()
+
     def __str__(self):
         return "@" + self.user.username
 
@@ -107,11 +117,13 @@ class JoinClubForm(models.Model):
     def accept(self):
         if self.status != self.STATUS_CHOICES[1][0]:
             self.status = self.STATUS_CHOICES[1][0]
+            self.account.setToMember()
             self.save()
 
     def reject(self):
         if self.status != self.STATUS_CHOICES[2][0]:
             self.status = self.STATUS_CHOICES[2][0]
+            self.account.unsetMember()
             self.save()
 
     def __str__(self):
