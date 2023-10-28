@@ -1,9 +1,9 @@
 from authentication.permissions import IsAdminOrReadOnly, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import viewsets, filters
-from rest_framework import status
 
 from django.db.models import Count
 
@@ -25,7 +25,7 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     serializer_class = CategoriesSerializer
     permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ["name"]
+    filterset_fields = {"name": ["icontains"]}
     ordering_fields = ["popular"]
 
     def get_queryset(self):
@@ -39,7 +39,11 @@ class ActivityViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = ListActivitiesSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ["title", "categories__name", "is_free"]
+    filterset_fields = {
+        "title": ["icontains"],
+        "categories__name": ["exact"],
+        "is_free": ["exact"],
+    }
     ordering_fields = ["created_at", "likes_count"]
 
     def get_queryset(self):
@@ -77,11 +81,17 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
     queryset = ActivityRegistration.objects.all()
     serializer_class = NonAdminActivityRegistrationSerializer
     permission_classes = [IsObjectOwnerOrAdminPermission]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = {
+        "status": ["exact"],
+        "is_payed": ["exact"],
+    }
+    ordering_fields = ["created_at"]
 
     def get_queryset(self):
         user = self.request.user
         if user.is_admin:
-            return ActivityRegistration.objects.all()
+            return super().get_queryset()
         else:
             return ActivityRegistration.objects.filter(account=user.account)
 
@@ -92,15 +102,8 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
         return NonAdminActivityRegistrationSerializer
 
     def update(self, request, *args, **kwargs):
-        if not self.request.user.is_admin:
-            return Response(
-                {
-                    "detail": "Non-admin users are not allowed to update ActivityRegistrations."
-                },
-                status=status.HTTP_403_FORBIDDEN,
-            )
-
-        return super().update(request, *args, **kwargs)
+        # Raise a MethodNotAllowed exception with a custom error message
+        raise MethodNotAllowed("Updates are not allowed for ActivityRegistrations.")
 
     @action(
         detail=True,
