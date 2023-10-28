@@ -2,6 +2,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 #
 from .validators import strongPassword, is_tunisian_phone_number
@@ -74,6 +75,14 @@ class Account(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def get_photo_url(self):
+        if self.photo:
+            return settings.API_BASE_URL + reverse(
+                "account-photo-detail", args=[str(self.id)]
+            )
+        return settings.DEFAULT_ACCOUNT_PHOTO_URL
 
     def setToMember(self):
         if not self.role in ["admin", "member"]:

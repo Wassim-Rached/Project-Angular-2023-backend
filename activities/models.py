@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 import uuid
 
+from django.urls import reverse
+
 from accounts.models import Account
 
 
@@ -54,6 +56,14 @@ class Activity(models.Model):
     @property
     def number_of_likes(self):
         return self.likes.count()
+
+    @property
+    def get_photo_url(self):
+        if self.photo:
+            return settings.API_BASE_URL + reverse(
+                "activity-photo-detail", args=[str(self.id)]
+            )
+        return None
 
     def isLikedBy(self, account):
         return self.likes.filter(id=account.id).exists()
