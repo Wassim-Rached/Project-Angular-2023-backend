@@ -1,10 +1,9 @@
-from django.urls import path,include
+from django.urls import path, include
 
 from .routers import router
 
-app_name = 'activities'
-
+app_name = "activities"
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
