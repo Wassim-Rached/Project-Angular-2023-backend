@@ -4,17 +4,17 @@ from authentication.permissions import IsAdminUser
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 from rest_framework import viewsets, status, permissions
-from rest_framework.decorators import action, permission_classes
-
+from rest_framework.decorators import action
+from activities.models import ActivityRegistration
+from activities.filters import ActivityRegistrationFilterClass
+from activities.serializers import AdminActivityRegistrationSerializer
 
 #
 from .models import CustomUser, Account, JoinClubForm
 from .serializers import (
     CustomUserSerializer,
-    AccountSerializer,
     ListAccountSerializer,
-    AdminAccountSerializer,
-    NonAdminAccountSerializer,
+    MainAccountSerializer,
     JoinClubFormSerializer,
 )
 from .permissions import IsAdminOrAccountOwnerOrReadOnly, IsAdminOrJoinClubFormOwner
@@ -31,7 +31,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
-    serializer_class = AccountSerializer
+    serializer_class = MainAccountSerializer
     permission_classes = [IsAdminOrAccountOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = {"user__username": ["icontains"]}
@@ -41,10 +41,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         if self.action == "list":
             return ListAccountSerializer
 
-        if self.request.user.is_admin:
-            return AdminAccountSerializer
-
-        return NonAdminAccountSerializer
+        return MainAccountSerializer
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -55,6 +52,25 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-related-registrations",
+        permission_classes=[permissions.IsAuthenticated],
+    )
+    def registrations(self, request, pk):
+        account = self.get_object()
+        activityRegistration = ActivityRegistration.objects.filter(account=account)
+
+        filterset = ActivityRegistrationFilterClass(
+            request.GET, queryset=activityRegistration
+        )
+        filtered_queryset = filterset.qs
+
+        instance = AdminActivityRegistrationSerializer(filtered_queryset, many=True)
+
+        return Response(instance.data)
 
 
 class JoinClubFormViewSet(viewsets.ModelViewSet):

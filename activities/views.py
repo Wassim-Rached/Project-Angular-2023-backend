@@ -3,10 +3,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 
 from django.db.models import Count
 
+from .filters import ActivityRegistrationFilterClass
 from .permissions import IsObjectOwnerOrAdminPermission
 from .models import Category, Activity, ActivityRegistration
 from .serializers import (
@@ -75,6 +76,27 @@ class ActivityViewSet(viewsets.ModelViewSet):
         account = request.user.account
         activity.toogle_like(account)
         return Response({"is_liked": activity.isLikedBy(request.user.account)})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="get-related-registrations",
+        permission_classes=[permissions.IsAuthenticated],
+    )
+    def registrations(self, request, pk):
+        activity = self.get_object()
+        activityRegistration = ActivityRegistration.objects.filter(activity=activity)
+
+        filterset = ActivityRegistrationFilterClass(
+            request.GET, queryset=activityRegistration
+        )
+        filtered_queryset = filterset.qs
+
+        ordered_queryset = self.ordering(request, filtered_queryset, self)
+
+        instance = AdminActivityRegistrationSerializer(ordered_queryset, many=True)
+
+        return Response(instance.data)
 
 
 class ActivityRegistrationViewSet(viewsets.ModelViewSet):
