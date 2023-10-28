@@ -150,5 +150,8 @@ SWAGGER_SETTINGS = {
     "VALIDATOR_URL": "http://localhost:8189",
 }
 
-API_BASE_URL = "http://localhost:8000"
+API_BASE_URL = os.environ.get("API_BASE_URL", "http://localhost:8000")
+
+Console.log("API_BASE_URL %s" % API_BASE_URL, Console.WARNING)
+
 DEFAULT_ACCOUNT_PHOTO_URL = "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
