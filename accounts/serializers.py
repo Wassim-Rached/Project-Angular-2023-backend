@@ -13,13 +13,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "is_superuser",
             "is_staff",
             "is_active",
-            "password",
             "groups",
             "user_permissions",
         ]
         extra_kwargs = {
             "first_name": {"required": True},
             "last_name": {"required": True},
+            "password": {"write_only": True},
         }
 
     def create(self, validated_data):
@@ -53,9 +53,8 @@ class ListAccountSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class NonAdminAccountSerializer(serializers.ModelSerializer):
+class MainAccountSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(many=False)
-    role = serializers.ReadOnlyField()
 
     class Meta:
         model = Account
@@ -82,40 +81,10 @@ class NonAdminAccountSerializer(serializers.ModelSerializer):
         user = instance.user
 
         for attr, value in user_data.items():
-            setattr(user, attr, value)
-
-        user.save()
-
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-
-        instance.save()
-        return instance
-
-
-class AdminAccountSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer(many=False)
-
-    class Meta:
-        model = Account
-        fields = "__all__"
-        read_only_fields = ("date_joined", "last_login", "created_at", "updated_at")
-
-    def create(self, validated_data):
-        user_data = validated_data.pop("user")
-
-        user = CustomUser.objects.create(**user_data)
-
-        account = Account.objects.create(user=user, **validated_data)
-        return account
-
-    def update(self, instance, validated_data):
-        user_data = validated_data.pop("user")
-
-        user = instance.user
-
-        for attr, value in user_data.items():
-            setattr(user, attr, value)
+            if attr == "password":
+                user.set_password(value)
+            else:
+                setattr(user, attr, value)
 
         user.save()
 
