@@ -1,10 +1,12 @@
 from rest_framework import permissions
 
+
 class IsAdminUser(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.user.is_admin:
-            return True
+        if request.user.is_authenticated:
+            return request.user.is_admin
         return False
+
 
 class IsAdminOrSelf(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -13,16 +15,15 @@ class IsAdminOrSelf(permissions.BasePermission):
             return True
 
         # Allow users to perform GET (retrieve) requests
-        if request.method == 'GET':
+        if request.method == "GET":
             return True
 
         # Allow users to perform POST (create) requests
-        if request.method == 'POST':
+        if request.method == "POST":
             return True
 
         # Allow users to update or delete their own account
         return obj == request.user
-
 
 
 class IsAdminOrReadOnly(permissions.BasePermission):
@@ -33,7 +34,7 @@ class IsAdminOrReadOnly(permissions.BasePermission):
 
         # Check if the user is authenticated and is an admin
         if request.user.is_authenticated:
-            return request.user.is_admin;
+            return request.user.is_admin
 
         # If neither of the above conditions is met, deny access
         return False
