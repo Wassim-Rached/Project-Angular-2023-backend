@@ -1,18 +1,32 @@
 from rest_framework import permissions
 
-class IsAdminOrSelf(permissions.BasePermission):
+
+class IsAdminOrAccountOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        # Allow admin users to perform any action
-        if request.user.is_staff:
+        # Read permissions are allowed to anyone, so we'll always allow GET, HEAD, or OPTIONS requests.
+        if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Allow users to perform GET (retrieve) requests
-        if request.method == 'GET':
+        if request.user.is_authenticated:
+            # Check if the user is an admin
+            if request.user.is_admin:
+                return True
+
+            # Check if the user is the owner of the account
+            if request.user.account == obj:
+                return True
+
+        return False
+
+
+class IsAdminOrJoinClubFormOwner(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            return True
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_admin:
             return True
 
-        # Allow users to perform POST (create) requests
-        if request.method == 'POST':
-            return True
-
-        # Allow users to update or delete their own account
-        return obj == request.user
+        return obj.account == request.user.account
