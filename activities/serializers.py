@@ -74,9 +74,10 @@ class UpdateActivitiesSerializer(serializers.ModelSerializer):
 
 class DetailActivitiesSerializer(serializers.ModelSerializer):
     number_of_likes = serializers.ReadOnlyField()
-    categories = SimpleCategorySerializer(many=True)
     posted_by = SimpleAccountSerializer(many=False)
+    categories = SimpleCategorySerializer(many=True)
     likes = SimpleAccountSerializer(many=True)
+    registred_accounts = SimpleAccountSerializer(many=True, read_only=True)
 
     class Meta:
         model = Activity
@@ -129,16 +130,16 @@ class AdminActivityRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ActivityRegistration
         fields = "__all__"
+        read_only_fields = ("created_at", "updated_at")
 
 
 class NonAdminActivityRegistrationSerializer(serializers.ModelSerializer):
-    is_payed = serializers.ReadOnlyField()
-    status = serializers.ReadOnlyField()
     activity = ListActivitiesSerializer
 
     class Meta:
         model = ActivityRegistration
         exclude = ["account"]
+        read_only_fields = ("is_payed", "status", "created_at", "updated_at")
 
     def create(self, validated_data):
         # Get the user's account from the request
