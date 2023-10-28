@@ -84,6 +84,8 @@ class NonAdminAccountSerializer(serializers.ModelSerializer):
         for attr, value in user_data.items():
             setattr(user, attr, value)
 
+        user.save()
+
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
 
@@ -114,6 +116,8 @@ class AdminAccountSerializer(serializers.ModelSerializer):
 
         for attr, value in user_data.items():
             setattr(user, attr, value)
+
+        user.save()
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
