@@ -37,12 +37,10 @@ class CustomUser(AbstractUser):
 
     @property
     def is_admin(self):
-        # Check if the user's role is 'admin'
         return self.account.role == "admin" if hasattr(self, "account") else False
 
     @property
     def is_member(self):
-        # Check if the user's role is 'member'
         return self.account.role == "member" if hasattr(self, "account") else False
 
     def __str__(self):
