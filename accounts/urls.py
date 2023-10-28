@@ -1,10 +1,10 @@
-from django.urls import path,include
+from django.urls import path, include
 
 from .routers import router
 
-app_name = 'accounts'
+app_name = "accounts"
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
