@@ -2,4 +2,8 @@
 
 ## database diagram
 
-![diagram photo](./design/drawSQL-project-angular-2023-db.png)
+![db diagram photo](./design/drawSQL-project-angular-2023-db.png)
+
+## uml diagram
+
+![uml diagram photo](./design/project-angular.png)
