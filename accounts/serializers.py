@@ -20,12 +20,20 @@ class CustomUserSerializer(serializers.ModelSerializer):
 			last_name=validated_data['last_name'],
 		)
 		user.set_password(validated_data['password'])
-		account = Account.objects.create(user=user)
-		print(account)
+		Account.objects.create(user=user)
 		user.save()
 		return user
 	
 class AccountSerializer(serializers.ModelSerializer):
+	username = serializers.ReadOnlyField(source='user.username')
+
 	class Meta:
 		model = Account
 		fields = '__all__'
+
+class SimpleAccountSerializer(serializers.ModelSerializer):
+	username = serializers.ReadOnlyField(source='user.username')
+
+	class Meta:
+		model = Account
+		fields = ['id','username','photo']
