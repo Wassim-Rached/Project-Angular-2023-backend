@@ -44,21 +44,10 @@ class UpdateActivitiesSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-        # Update fields on the Activity instance
-        instance.title = validated_data.get("title", instance.title)
-        instance.photo = validated_data.get("photo", instance.photo)
-        instance.is_free = validated_data.get("is_free", instance.is_free)
-        instance.price = validated_data.get("price", instance.price)
-        instance.description = validated_data.get("description", instance.description)
-        instance.location = validated_data.get("location", instance.location)
-        instance.max_participants = validated_data.get(
-            "max_participants", instance.max_participants
-        )
-        instance.date = validated_data.get("date", instance.date)
+        for attr, value in validated_data.items():
+            if attr != "categories":
+                setattr(instance, attr, value)
 
-        print(validated_data["categories"])
-
-        # Update categories (Many-to-Many relationship)
         if "categories" in validated_data:
             updated_categories = []
             for category_data in validated_data["categories"]:
