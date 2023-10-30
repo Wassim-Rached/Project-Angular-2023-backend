@@ -39,7 +39,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class AccountSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="user.username")
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
@@ -49,17 +49,18 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class ListAccountSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
         fields = "__all__"
-        kwargs = {"photo": {"write_only": True}}
-
+        extra_kwargs = {
+                    "photo": {"write_only": True},
+                }
 
 class MainAccountSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(many=False)
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
@@ -71,6 +72,9 @@ class MainAccountSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+        extra_kwargs = {
+            "photo": {"write_only": True},
+        }
 
     def create(self, validated_data):
         user_data = validated_data.pop("user")
