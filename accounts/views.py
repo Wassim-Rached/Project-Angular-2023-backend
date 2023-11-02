@@ -72,6 +72,17 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         return Response(instance.data)
 
+    @action(
+    detail=False,
+    methods=["GET"],
+    url_name="my-account",
+    permission_classes=[permissions.IsAuthenticated],
+    )
+    def me(self, request):
+        account = self.request.user.account
+        instance = MainAccountSerializer(account)
+        return Response(instance.data)
+
 
 class JoinClubFormViewSet(viewsets.ModelViewSet):
     queryset = JoinClubForm.objects.all()

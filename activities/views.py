@@ -18,6 +18,7 @@ from .serializers import (
     AdminActivityRegistrationSerializer,
     CreateActivitiesSerializer,
     UpdateActivitiesSerializer,
+    SimpleCategorySerializer,
 )
 
 
@@ -28,6 +29,12 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = {"name": ["icontains"]}
     ordering_fields = ["popular"]
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return SimpleCategorySerializer
+
+        return CategoriesSerializer
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -97,6 +104,17 @@ class ActivityViewSet(viewsets.ModelViewSet):
         instance = AdminActivityRegistrationSerializer(ordered_queryset, many=True)
 
         return Response(instance.data)
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="activity-categories",
+        permission_classes=[permissions.AllowAny],
+    )
+    def categories(self, request, pk=None):
+        activity = self.get_object()
+        instance = SimpleCategorySerializer(activity.categories, many=True)
+        return Response({"categories": instance.data})
 
 
 class ActivityRegistrationViewSet(viewsets.ModelViewSet):

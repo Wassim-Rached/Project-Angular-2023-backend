@@ -4,12 +4,11 @@ from django.db import IntegrityError
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    last_login = serializers.ReadOnlyField()
-    date_joined = serializers.ReadOnlyField()
-
     class Meta:
         model = CustomUser
         exclude = [
+            "last_login",
+            "date_joined",
             "is_superuser",
             "is_staff",
             "is_active",
@@ -39,7 +38,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class AccountSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="user.username")
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
@@ -49,32 +48,37 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class ListAccountSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
         fields = "__all__"
-        kwargs = {"photo": {"write_only": True}}
+        extra_kwargs = {
+            "photo": {"write_only": True},
+        }
 
 
 class MainAccountSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(many=False)
-    get_photo_url = serializers.ReadOnlyField()
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
         fields = "__all__"
         read_only_fields = (
             "role",
-            "date_joined",
-            "last_login",
             "created_at",
             "updated_at",
         )
+        extra_kwargs = {
+            "photo": {"write_only": True},
+        }
 
     def create(self, validated_data):
         user_data = validated_data.pop("user")
-        user = CustomUser.objects.create(**user_data)
+        user_serializer = CustomUserSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
 
         account = Account.objects.create(user=user, **validated_data)
         return account
