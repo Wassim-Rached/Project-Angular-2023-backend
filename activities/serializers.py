@@ -67,26 +67,27 @@ class DetailActivitiesSerializer(serializers.ModelSerializer):
     categories = SimpleCategorySerializer(many=True)
     likes = SimpleAccountSerializer(many=True)
     registred_accounts = SimpleAccountSerializer(many=True, read_only=True)
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Activity
-        fields = "__all__"
+        exclude = ["photo"]
 
 
 class ListActivitiesSerializer(serializers.ModelSerializer):
     number_of_likes = serializers.ReadOnlyField()
     categories = SimpleCategorySerializer(many=True, read_only=True)
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Activity
         fields = [
             "id",
             "title",
-            "photo",
+            "photo_url",
             "is_free",
             "number_of_likes",
             "categories",
-            "get_photo_url",
             "created_at",
         ]
 
