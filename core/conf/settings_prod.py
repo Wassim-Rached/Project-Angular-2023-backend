@@ -157,7 +157,7 @@ DEFAULT_ACCOUNT_PHOTO_URL = "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_21584432
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = ("http://localhost:4200",)
+CORS_ORIGIN_WHITELIST = ("http://localhost:4200",)
 
 CORS_ALLOW_HEADERS = [
     "accept",
