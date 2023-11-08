@@ -112,7 +112,7 @@ class SimpleAccountSerializer(serializers.ModelSerializer):
 
 
 class JoinClubFormSerializer(serializers.ModelSerializer):
-    account = SimpleAccountSerializer(many=False, read_only=True)
+    account = MainAccountSerializer(many=False, read_only=True)
     status = serializers.ReadOnlyField()
 
     class Meta:
