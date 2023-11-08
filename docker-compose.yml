@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    image: python:latest # Replace with the actual image name
+    container_name: django_app
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: make start-dev
+    volumes:
+      - ./:/app # Mount your Django app code into the container
+    ports:
+      - "8000:8000" # Map container port 8000 to host port 8000
+    environment:
+      - DEBUG=True # Set your environment variables as needed
+      # - DATABASE_URL=postgres://username:password@db:5432/dbname # Replace with your PostgreSQL connection details
+
+  # db:
+  #   image: postgres:13 # Use an appropriate PostgreSQL image and version
+  #   container_name: postgres_db
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data # Mount a volume for PostgreSQL data
+  #   environment:
+  #     - POSTGRES_DB=dbname
+  #     - POSTGRES_USER=username
+  #     - POSTGRES_PASSWORD=password
+# volumes:
+#   postgres_data: # Define a volume for PostgreSQL data persistence
