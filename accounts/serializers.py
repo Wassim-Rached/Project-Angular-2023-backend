@@ -80,6 +80,8 @@ class MainAccountSerializer(serializers.ModelSerializer):
         # user_serializer.is_valid(raise_exception=True)
         # user = user_serializer.save()
         user = CustomUser.objects.create(**user_data)
+        user.set_password(user_data["password"])
+        user.save()
 
         account = Account.objects.create(user=user, **validated_data)
         return account
