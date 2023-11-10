@@ -76,9 +76,12 @@ class MainAccountSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_data = validated_data.pop("user")
-        user_serializer = CustomUserSerializer(data=user_data)
-        user_serializer.is_valid(raise_exception=True)
-        user = user_serializer.save()
+        # user_serializer = CustomUserSerializer(data=user_data)
+        # user_serializer.is_valid(raise_exception=True)
+        # user = user_serializer.save()
+        user = CustomUser.objects.create(**user_data)
+        user.set_password(user_data["password"])
+        user.save()
 
         account = Account.objects.create(user=user, **validated_data)
         return account
@@ -112,7 +115,7 @@ class SimpleAccountSerializer(serializers.ModelSerializer):
 
 
 class JoinClubFormSerializer(serializers.ModelSerializer):
-    account = SimpleAccountSerializer(many=False, read_only=True)
+    account = MainAccountSerializer(many=False, read_only=True)
     status = serializers.ReadOnlyField()
 
     class Meta:

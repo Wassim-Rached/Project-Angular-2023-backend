@@ -13,6 +13,8 @@ class AccountPhotoView(APIView):
             return FileResponse(open(image_path, "rb"))
         except Account.DoesNotExist:
             return Response({"error": "MyModel not found"}, status=404)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
 
 
 class ActivityPhotoView(APIView):
@@ -23,3 +25,5 @@ class ActivityPhotoView(APIView):
             return FileResponse(open(image_path, "rb"))
         except Account.DoesNotExist:
             return Response({"error": "MyModel not found"}, status=404)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
