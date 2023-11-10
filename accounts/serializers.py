@@ -76,9 +76,10 @@ class MainAccountSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_data = validated_data.pop("user")
-        user_serializer = CustomUserSerializer(data=user_data)
-        user_serializer.is_valid(raise_exception=True)
-        user = user_serializer.save()
+        # user_serializer = CustomUserSerializer(data=user_data)
+        # user_serializer.is_valid(raise_exception=True)
+        # user = user_serializer.save()
+        user = CustomUser.objects.create(**user_data)
 
         account = Account.objects.create(user=user, **validated_data)
         return account
