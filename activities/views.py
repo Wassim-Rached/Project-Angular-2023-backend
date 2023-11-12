@@ -76,12 +76,25 @@ class ActivityViewSet(viewsets.ModelViewSet):
         detail=True,
         methods=["POST"],
         url_name="toogle-like",
-        permission_classes=[IsAdminUser],
+        permission_classes=[permissions.IsAuthenticated],
     )
     def toogle_like(self, request, pk=None):
         activity = self.get_object()
         account = request.user.account
         activity.toogle_like(account)
+        return Response({"is_liked": activity.isLikedBy(request.user.account)})
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        url_name="like",
+        permission_classes=[permissions.IsAuthenticated],
+    )
+    def like(self, request, pk=None):
+        activity = self.get_object()
+        account = request.user.account
+        if not activity.isLikedBy(account):
+            activity.like(account)
         return Response({"is_liked": activity.isLikedBy(request.user.account)})
 
     @action(
