@@ -1,6 +1,31 @@
 from .models import CustomUser, Account, JoinClubForm
 from rest_framework import serializers
 from django.db import IntegrityError
+from .validators import strongPassword
+
+
+class ChangeAccountPasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        request = self.context["request"]
+        user = request.user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Old password is incorrect")
+        return value
+
+    def validate_new_password(self, value):
+        request = self.context["request"]
+        user = request.user
+        if user.check_password(value):
+            raise serializers.ValidationError(
+                "New password cannot be the same as old password"
+            )
+
+        strongPassword(value)
+
+        return value
 
 
 class CustomUserSerializer(serializers.ModelSerializer):

@@ -16,6 +16,7 @@ from .serializers import (
     ListAccountSerializer,
     MainAccountSerializer,
     JoinClubFormSerializer,
+    ChangeAccountPasswordSerializer,
 )
 from .permissions import IsAdminOrAccountOwnerOrReadOnly, IsAdminOrJoinClubFormOwner
 
@@ -73,15 +74,33 @@ class AccountViewSet(viewsets.ModelViewSet):
         return Response(instance.data)
 
     @action(
-    detail=False,
-    methods=["GET"],
-    url_name="my-account",
-    permission_classes=[permissions.IsAuthenticated],
+        detail=False,
+        methods=["GET"],
+        url_name="my-account",
+        permission_classes=[permissions.IsAuthenticated],
     )
     def me(self, request):
         account = self.request.user.account
         instance = MainAccountSerializer(account)
         return Response(instance.data)
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        url_name="change-password",
+        permission_classes=[IsAdminOrAccountOwnerOrReadOnly],
+        serializer_class=ChangeAccountPasswordSerializer,
+    )
+    def change_password(self, request, pk):
+        serializer = ChangeAccountPasswordSerializer(
+            data=request.data, context={"request": request}
+        )
+        serializer.is_valid(raise_exception=True)
+        account = self.get_object()
+        user = account.user
+        user.set_password(serializer.validated_data["new_password"])
+        user.save()
+        return Response({"status": "Password changed."})
 
 
 class JoinClubFormViewSet(viewsets.ModelViewSet):
