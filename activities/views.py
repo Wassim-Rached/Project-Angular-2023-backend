@@ -64,7 +64,6 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return ListActivitiesSerializer
 
         if self.action in ["update", "partial_update"]:
-            print("update serializer")
             return UpdateActivitiesSerializer
 
         if self.action in ["create"]:
