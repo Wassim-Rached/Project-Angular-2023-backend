@@ -66,7 +66,8 @@ class UpdateActivitiesSerializer(serializers.ModelSerializer):
 
 class DetailActivitiesSerializer(serializers.ModelSerializer):
     number_of_likes = serializers.ReadOnlyField()
-    posted_by = SimpleAccountSerializer(many=False)
+    # weird bug
+    posted_by = ActivityRegsitraionsAccountSerializer(many=False)
     categories = SimpleCategorySerializer(many=True)
     likes = SimpleAccountSerializer(many=True)
     registred_accounts = SimpleAccountSerializer(many=True, read_only=True)
