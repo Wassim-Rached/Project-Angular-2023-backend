@@ -159,3 +159,11 @@ class JoinClubFormSerializer(serializers.ModelSerializer):
             )
 
         return instance
+
+
+class ActivityRegsitraionsAccountSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer(many=False)
+
+    class Meta:
+        model = Account
+        fields = "__all__"

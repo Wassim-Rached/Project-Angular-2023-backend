@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import Category, Activity, ActivityRegistration
-from accounts.serializers import SimpleAccountSerializer
+from accounts.serializers import (
+    SimpleAccountSerializer,
+    ActivityRegsitraionsAccountSerializer,
+)
 
 
 # Categories Serializers
@@ -116,7 +119,7 @@ class CreateActivitiesSerializer(serializers.ModelSerializer):
 
 # ActivityRegistration Serializers
 class AdminActivityRegistrationSerializer(serializers.ModelSerializer):
-    username = serializers.ReadOnlyField(source="account.user.username")
+    account = ActivityRegsitraionsAccountSerializer(many=False)
 
     class Meta:
         model = ActivityRegistration
