@@ -93,9 +93,22 @@ class ActivityViewSet(viewsets.ModelViewSet):
     def like(self, request, pk=None):
         activity = self.get_object()
         account = request.user.account
-        if not activity.isLikedBy(account):
+        liked = activity.isLikedBy(account)
+        if not liked:
             activity.like(account)
-        return Response({"is_liked": activity.isLikedBy(request.user.account)})
+        return Response({"have_changed": not liked})
+
+    @action(
+        detail=True,
+        methods=["GET"],
+        url_name="did-like",
+        permission_classes=[permissions.IsAuthenticated],
+    )
+    def did_like(self, request, pk=None):
+        activity = self.get_object()
+        account = request.user.account
+        liked = activity.isLikedBy(account)
+        return Response({"did_like": liked})
 
     @action(
         detail=True,
