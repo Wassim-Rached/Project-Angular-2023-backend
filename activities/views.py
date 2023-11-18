@@ -120,14 +120,14 @@ class ActivityViewSet(viewsets.ModelViewSet):
         activity = self.get_object()
         activityRegistration = ActivityRegistration.objects.filter(activity=activity)
 
-        filterset = ActivityRegistrationFilterClass(
-            request.GET, queryset=activityRegistration
-        )
-        filtered_queryset = filterset.qs
+        # filterset = ActivityRegistrationFilterClass(
+        #     request.GET, queryset=activityRegistration
+        # )
+        # filtered_queryset = filterset.qs
 
-        ordered_queryset = self.ordering(request, filtered_queryset, self)
+        # ordered_queryset = self.ordering(request, filtered_queryset, self)
 
-        instance = AdminActivityRegistrationSerializer(ordered_queryset, many=True)
+        instance = AdminActivityRegistrationSerializer(activityRegistration, many=True)
 
         return Response(instance.data)
 
