@@ -163,6 +163,7 @@ class JoinClubFormSerializer(serializers.ModelSerializer):
 
 class ActivityRegsitraionsAccountSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(many=False)
+    photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
         model = Account
