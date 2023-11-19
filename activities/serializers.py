@@ -68,9 +68,11 @@ class DetailActivitiesSerializer(serializers.ModelSerializer):
     number_of_likes = serializers.ReadOnlyField()
     # weird bug
     posted_by = ActivityRegsitraionsAccountSerializer(many=False)
-    categories = ActivityRegsitraionsAccountSerializer(many=True)
+    categories = SimpleCategorySerializer(many=True)
     likes = ActivityRegsitraionsAccountSerializer(many=True)
-    registred_accounts = SimpleAccountSerializer(many=True, read_only=True)
+    registred_accounts = ActivityRegsitraionsAccountSerializer(
+        many=True, read_only=True
+    )
     photo_url = serializers.ReadOnlyField(source="get_photo_url")
 
     class Meta:
