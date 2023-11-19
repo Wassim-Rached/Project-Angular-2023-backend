@@ -64,7 +64,6 @@ class ActivityViewSet(viewsets.ModelViewSet):
             return ListActivitiesSerializer
 
         if self.action in ["update", "partial_update"]:
-            print("update serializer")
             return UpdateActivitiesSerializer
 
         if self.action in ["create"]:
@@ -162,8 +161,8 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
             return ActivityRegistration.objects.filter(account=user.account)
 
     def get_serializer_class(self):
-        if self.request.user.is_admin:
-            return AdminActivityRegistrationSerializer
+        # if self.request.user.is_admin:
+        #     return AdminActivityRegistrationSerializer
 
         return NonAdminActivityRegistrationSerializer
 
