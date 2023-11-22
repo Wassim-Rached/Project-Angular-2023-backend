@@ -100,9 +100,9 @@ class Account(models.Model):
 
 class JoinClubForm(models.Model):
     STATUS_CHOICES = (
-        ("pending", "pending"),
-        ("accepted", "accepted"),
-        ("rejected", "rejected"),
+        ("pending", "Pending"),
+        ("accepted", "Accepted"),
+        ("rejected", "Rejected"),
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
