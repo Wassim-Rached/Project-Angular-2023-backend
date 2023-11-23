@@ -210,3 +210,17 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
         activity_registration = self.get_object()
         activity_registration.unPayRegistration()
         return Response({"is_payed": activity_registration.is_payed})
+
+    @action(
+        detail=False,
+        methods=["GET"],
+        url_name="my-registrations",
+        permission_classes=[permissions.IsAuthenticated],
+    )
+    def mine(self, request):
+        account = self.request.user.account
+        activityRegistration = ActivityRegistration.objects.filter(account=account)
+        instance = NonAdminActivityRegistrationSerializer(
+            activityRegistration, many=True
+        )
+        return Response(instance.data)
