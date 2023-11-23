@@ -120,6 +120,9 @@ class JoinClubForm(models.Model):
         null=False,
         choices=STATUS_CHOICES,
     )
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+    accepted_at = models.DateTimeField(blank=True, null=True)
 
     def accept(self):
         if self.status != self.STATUS_CHOICES[1][0]:
