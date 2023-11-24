@@ -19,6 +19,7 @@ from .serializers import (
     CreateActivitiesSerializer,
     UpdateActivitiesSerializer,
     SimpleCategorySerializer,
+    DetailActivityRegistrationSerializer,
 )
 
 
@@ -220,7 +221,5 @@ class ActivityRegistrationViewSet(viewsets.ModelViewSet):
     def mine(self, request):
         account = self.request.user.account
         activityRegistration = ActivityRegistration.objects.filter(account=account)
-        instance = NonAdminActivityRegistrationSerializer(
-            activityRegistration, many=True
-        )
+        instance = DetailActivityRegistrationSerializer(activityRegistration, many=True)
         return Response(instance.data)
