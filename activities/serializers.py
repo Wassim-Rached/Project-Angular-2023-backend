@@ -94,6 +94,7 @@ class ListActivitiesSerializer(serializers.ModelSerializer):
             "is_free",
             "number_of_likes",
             "categories",
+            "date",
             "created_at",
         ]
 
