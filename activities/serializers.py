@@ -94,6 +94,7 @@ class ListActivitiesSerializer(serializers.ModelSerializer):
             "is_free",
             "number_of_likes",
             "categories",
+            "date",
             "created_at",
         ]
 
@@ -121,6 +122,16 @@ class CreateActivitiesSerializer(serializers.ModelSerializer):
 
 
 # ActivityRegistration Serializers
+class DetailActivityRegistrationSerializer(serializers.ModelSerializer):
+    account = ActivityRegsitraionsAccountSerializer(many=False)
+    activity = ListActivitiesSerializer(many=False)
+
+    class Meta:
+        model = ActivityRegistration
+        fields = "__all__"
+        read_only_fields = ("created_at", "updated_at")
+
+
 class AdminActivityRegistrationSerializer(serializers.ModelSerializer):
     account = ActivityRegsitraionsAccountSerializer(many=False)
 
