@@ -132,7 +132,7 @@ class JoinClubFormViewSet(viewsets.ModelViewSet):
     def accept(self, request, pk=None):
         instance = self.get_object()
         instance.accept()
-        return Response({"status": instance.status})
+        return Response(instance.status)
 
     @action(
         detail=True,
@@ -143,4 +143,4 @@ class JoinClubFormViewSet(viewsets.ModelViewSet):
     def reject(self, request, pk=None):
         instance = self.get_object()
         instance.reject()
-        return Response({"status": instance.status})
+        return Response(instance.status)
