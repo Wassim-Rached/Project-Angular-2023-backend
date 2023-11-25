@@ -100,7 +100,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         user = account.user
         user.set_password(serializer.validated_data["new_password"])
         user.save()
-        return Response({"status": "Password changed."})
+        return Response("Password changed successfully.")
 
 
 class JoinClubFormViewSet(viewsets.ModelViewSet):
