@@ -1,0 +1,2332 @@
+
+{
+
+      "swagger": "2.0",
+      "info": {
+            "title": "Snippets API",
+            "description": "backend for angular project @isetcharguia by wassim rached & chaima chouikh",
+            "termsOfService": "https://www.google.com/policies/terms/",
+            "contact": {
+                  "email": "wassimrached404@gmail.com"
+            },
+            "license": {
+                  "name": "BSD License"
+            },
+            "version": "v1"
+      },
+      "host": "mini-project-iset.onrender.com",
+      "schemes": [
+            "https"
+      ],
+      "basePath": "/",
+      "consumes": [
+            "application/json"
+      ],
+      "produces": [
+            "application/json"
+      ],
+      "securityDefinitions": {
+            "Basic": {
+                  "type": "basic"
+            }
+      },
+      "security": [
+            {
+                  "Basic": [ ]
+            }
+      ],
+      "paths": {
+            "/": {
+                  "get": {
+                        "operationId": "_list",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              ""
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/accounts/": {
+                  "get": {
+                        "operationId": "api_accounts_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "user__username__icontains",
+                                    "in": "query",
+                                    "description": "user__username__icontains",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/ListAccount"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_accounts_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/accounts/join_us/": {
+                  "get": {
+                        "operationId": "api_accounts_join_us_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/JoinClubForm"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_accounts_join_us_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/accounts/join_us/{id}/": {
+                  "get": {
+                        "operationId": "api_accounts_join_us_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_accounts_join_us_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_accounts_join_us_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_accounts_join_us_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this join club form.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/join_us/{id}/accept/": {
+                  "post": {
+                        "operationId": "api_accounts_join_us_accept",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this join club form.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/join_us/{id}/reject/": {
+                  "post": {
+                        "operationId": "api_accounts_join_us_reject",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/JoinClubForm"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this join club form.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/me/": {
+                  "get": {
+                        "operationId": "api_accounts_me",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "user__username__icontains",
+                                    "in": "query",
+                                    "description": "user__username__icontains",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/MainAccount"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/accounts/users/": {
+                  "get": {
+                        "operationId": "api_accounts_users_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "username__icontains",
+                                    "in": "query",
+                                    "description": "username__icontains",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/CustomUser"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_accounts_users_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/accounts/users/{id}/": {
+                  "get": {
+                        "operationId": "api_accounts_users_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_accounts_users_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_accounts_users_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/CustomUser"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_accounts_users_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this user.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/{id}/": {
+                  "get": {
+                        "operationId": "api_accounts_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_accounts_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_accounts_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_accounts_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this account.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/{id}/change_password/": {
+                  "post": {
+                        "operationId": "api_accounts_change_password",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this account.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/accounts/{id}/registrations/": {
+                  "get": {
+                        "operationId": "api_accounts_registrations",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/MainAccount"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this account.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/": {
+                  "get": {
+                        "operationId": "api_activities_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "title__icontains",
+                                    "in": "query",
+                                    "description": "title__icontains",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "categories__name",
+                                    "in": "query",
+                                    "description": "categories__name",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "is_free",
+                                    "in": "query",
+                                    "description": "is_free",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/ListActivities"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_activities_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/CreateActivities"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/CreateActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/activities/categories/": {
+                  "get": {
+                        "operationId": "api_activities_categories_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "name__icontains",
+                                    "in": "query",
+                                    "description": "name__icontains",
+                                    "required": false,
+                                    "type": "string"
+                              },
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/SimpleCategory"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_activities_categories_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/activities/categories/{id}/": {
+                  "get": {
+                        "operationId": "api_activities_categories_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_activities_categories_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_activities_categories_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/Categories"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_activities_categories_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this category.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/registrations/": {
+                  "get": {
+                        "operationId": "api_activities_registrations_list",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/NonAdminActivityRegistration"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "post": {
+                        "operationId": "api_activities_registrations_create",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/activities/registrations/mine/": {
+                  "get": {
+                        "operationId": "api_activities_registrations_mine",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "ordering",
+                                    "in": "query",
+                                    "description": "Which field to use when ordering the results.",
+                                    "required": false,
+                                    "type": "string"
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "$ref": "#/definitions/NonAdminActivityRegistration"
+                                          }
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/activities/registrations/{id}/": {
+                  "get": {
+                        "operationId": "api_activities_registrations_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_activities_registrations_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_activities_registrations_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_activities_registrations_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity registration.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/registrations/{id}/accept/": {
+                  "post": {
+                        "operationId": "api_activities_registrations_accept",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity registration.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/registrations/{id}/pay/": {
+                  "post": {
+                        "operationId": "api_activities_registrations_pay",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity registration.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/registrations/{id}/reject/": {
+                  "post": {
+                        "operationId": "api_activities_registrations_reject",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity registration.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/registrations/{id}/unpay/": {
+                  "post": {
+                        "operationId": "api_activities_registrations_unpay",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/NonAdminActivityRegistration"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity registration.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/": {
+                  "get": {
+                        "operationId": "api_activities_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "put": {
+                        "operationId": "api_activities_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/UpdateActivities"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/UpdateActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "patch": {
+                        "operationId": "api_activities_partial_update",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/UpdateActivities"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/UpdateActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "delete": {
+                        "operationId": "api_activities_delete",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "204": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/categories/": {
+                  "get": {
+                        "operationId": "api_activities_categories",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/did_like/": {
+                  "get": {
+                        "operationId": "api_activities_did_like",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/like/": {
+                  "post": {
+                        "operationId": "api_activities_like",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/registrations/": {
+                  "get": {
+                        "operationId": "api_activities_registrations",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/activities/{id}/toogle_like/": {
+                  "post": {
+                        "operationId": "api_activities_toogle_like",
+                        "description": "",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/DetailActivities"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "description": "A UUID string identifying this activity.",
+                              "required": true,
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  ]
+            },
+            "/api/authentication/token/": {
+                  "post": {
+                        "operationId": "api_authentication_token_create",
+                        "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenObtainPair"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenObtainPair"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/authentication/token/refresh/": {
+                  "post": {
+                        "operationId": "api_authentication_token_refresh_create",
+                        "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenRefresh"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenRefresh"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/authentication/token/verify/": {
+                  "post": {
+                        "operationId": "api_authentication_token_verify_create",
+                        "description": "Takes a token and indicates if it is valid.  This view provides no\ninformation about a token's fitness for a particular use.",
+                        "parameters": [
+                              {
+                                    "name": "data",
+                                    "in": "body",
+                                    "required": true,
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenVerify"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "201": {
+                                    "description": "",
+                                    "schema": {
+                                          "$ref": "#/definitions/TokenVerify"
+                                    }
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [ ]
+            },
+            "/api/photo/account/{id}/": {
+                  "get": {
+                        "operationId": "api_photo_account_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "required": true,
+                              "type": "string"
+                        }
+                  ]
+            },
+            "/api/photo/activity/{id}/": {
+                  "get": {
+                        "operationId": "api_photo_activity_read",
+                        "description": "",
+                        "parameters": [ ],
+                        "responses": {
+                              "200": {
+                                    "description": ""
+                              }
+                        },
+                        "tags": [
+                              "api"
+                        ]
+                  },
+                  "parameters": [
+                        {
+                              "name": "id",
+                              "in": "path",
+                              "required": true,
+                              "type": "string"
+                        }
+                  ]
+            }
+      },
+      "definitions": {
+            "ListAccount": {
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "user": {
+                              "title": "User",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "photo_url": {
+                              "title": "Photo url",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "role": {
+                              "title": "Role",
+                              "type": "string",
+                              "enum": [
+                                    "user",
+                                    "admin",
+                                    "member"
+                              ]
+                        },
+                        "photo": {
+                              "title": "Photo",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-nullable": true,
+                              "format": "uri"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        }
+                  }
+            },
+            "CustomUser": {
+                  "required": [
+                        "username",
+                        "email",
+                        "password",
+                        "gender",
+                        "phone_number",
+                        "first_name",
+                        "last_name"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "username": {
+                              "title": "Username",
+                              "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                              "type": "string",
+                              "pattern": "^[\\w.@+-]+$",
+                              "maxLength": 150,
+                              "minLength": 1
+                        },
+                        "email": {
+                              "title": "Email",
+                              "type": "string",
+                              "format": "email",
+                              "maxLength": 254,
+                              "minLength": 1
+                        },
+                        "password": {
+                              "title": "Password",
+                              "type": "string",
+                              "maxLength": 128,
+                              "minLength": 1
+                        },
+                        "gender": {
+                              "title": "Gender",
+                              "type": "string",
+                              "enum": [
+                                    "M",
+                                    "F"
+                              ]
+                        },
+                        "phone_number": {
+                              "title": "Phone number",
+                              "type": "string",
+                              "maxLength": 8,
+                              "minLength": 1
+                        },
+                        "first_name": {
+                              "title": "First name",
+                              "type": "string",
+                              "maxLength": 30,
+                              "minLength": 1
+                        },
+                        "last_name": {
+                              "title": "Last name",
+                              "type": "string",
+                              "maxLength": 30,
+                              "minLength": 1
+                        }
+                  }
+            },
+            "MainAccount": {
+                  "required": [
+                        "user"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "user": {
+                              "$ref": "#/definitions/CustomUser"
+                        },
+                        "photo_url": {
+                              "title": "Photo url",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "role": {
+                              "title": "Role",
+                              "type": "string",
+                              "enum": [
+                                    "user",
+                                    "admin",
+                                    "member"
+                              ],
+                              "readOnly": true
+                        },
+                        "photo": {
+                              "title": "Photo",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-nullable": true,
+                              "format": "uri"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        }
+                  }
+            },
+            "JoinClubForm": {
+                  "required": [
+                        "how_found_us",
+                        "reasons",
+                        "goals"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "account": {
+                              "$ref": "#/definitions/MainAccount"
+                        },
+                        "status": {
+                              "title": "Status",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "how_found_us": {
+                              "title": "How found us",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "reasons": {
+                              "title": "Reasons",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "goals": {
+                              "title": "Goals",
+                              "type": "string",
+                              "maxLength": 1024,
+                              "minLength": 1
+                        },
+                        "receive_emails": {
+                              "title": "Receive emails",
+                              "type": "boolean"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "accepted_at": {
+                              "title": "Accepted at",
+                              "type": "string",
+                              "format": "date-time",
+                              "x-nullable": true
+                        }
+                  }
+            },
+            "SimpleCategory": {
+                  "required": [
+                        "name"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "name": {
+                              "title": "Name",
+                              "type": "string",
+                              "maxLength": 64,
+                              "minLength": 1
+                        }
+                  }
+            },
+            "ListActivities": {
+                  "required": [
+                        "title",
+                        "date"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "photo_url": {
+                              "title": "Photo url",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "is_free": {
+                              "title": "Is free",
+                              "type": "boolean"
+                        },
+                        "number_of_likes": {
+                              "title": "Number of likes",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "categories": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/SimpleCategory"
+                              },
+                              "readOnly": true
+                        },
+                        "date": {
+                              "title": "Date",
+                              "type": "string",
+                              "format": "date"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        }
+                  }
+            },
+            "Categories": {
+                  "required": [
+                        "name"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "name": {
+                              "title": "Name",
+                              "type": "string",
+                              "maxLength": 64,
+                              "minLength": 1
+                        }
+                  }
+            },
+            "CreateActivities": {
+                  "required": [
+                        "title",
+                        "date"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "categories": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/Categories"
+                              }
+                        },
+                        "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "photo": {
+                              "title": "Photo",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-nullable": true,
+                              "format": "uri"
+                        },
+                        "is_free": {
+                              "title": "Is free",
+                              "type": "boolean"
+                        },
+                        "price": {
+                              "title": "Price",
+                              "type": "number",
+                              "x-nullable": true
+                        },
+                        "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "x-nullable": true
+                        },
+                        "location": {
+                              "title": "Location",
+                              "type": "string",
+                              "maxLength": 255
+                        },
+                        "max_participants": {
+                              "title": "Max participants",
+                              "type": "integer",
+                              "x-nullable": true
+                        },
+                        "date": {
+                              "title": "Date",
+                              "type": "string",
+                              "format": "date"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "likes": {
+                              "type": "array",
+                              "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                              },
+                              "readOnly": true,
+                              "uniqueItems": true
+                        },
+                        "registred_accounts": {
+                              "type": "array",
+                              "items": {
+                                    "type": "string",
+                                    "format": "uuid"
+                              },
+                              "readOnly": true,
+                              "uniqueItems": true
+                        }
+                  }
+            },
+            "NonAdminActivityRegistration": {
+                  "required": [
+                        "activity"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "status": {
+                              "title": "Status",
+                              "type": "string",
+                              "enum": [
+                                    "pending",
+                                    "accepted",
+                                    "rejected"
+                              ],
+                              "readOnly": true
+                        },
+                        "is_payed": {
+                              "title": "Is payed",
+                              "type": "boolean",
+                              "readOnly": true
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "activity": {
+                              "title": "Activity",
+                              "type": "string",
+                              "format": "uuid"
+                        }
+                  }
+            },
+            "ActivityRegsitraionsAccount": {
+                  "required": [
+                        "user"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "user": {
+                              "$ref": "#/definitions/CustomUser"
+                        },
+                        "photo_url": {
+                              "title": "Photo url",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "role": {
+                              "title": "Role",
+                              "type": "string",
+                              "enum": [
+                                    "user",
+                                    "admin",
+                                    "member"
+                              ]
+                        },
+                        "photo": {
+                              "title": "Photo",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-nullable": true,
+                              "format": "uri"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        }
+                  }
+            },
+            "DetailActivities": {
+                  "required": [
+                        "posted_by",
+                        "categories",
+                        "likes",
+                        "title",
+                        "date"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "id": {
+                              "title": "Id",
+                              "type": "string",
+                              "format": "uuid",
+                              "readOnly": true
+                        },
+                        "number_of_likes": {
+                              "title": "Number of likes",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "posted_by": {
+                              "$ref": "#/definitions/ActivityRegsitraionsAccount"
+                        },
+                        "categories": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/SimpleCategory"
+                              }
+                        },
+                        "likes": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/ActivityRegsitraionsAccount"
+                              }
+                        },
+                        "registred_accounts": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/ActivityRegsitraionsAccount"
+                              },
+                              "readOnly": true
+                        },
+                        "photo_url": {
+                              "title": "Photo url",
+                              "type": "string",
+                              "readOnly": true
+                        },
+                        "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "is_free": {
+                              "title": "Is free",
+                              "type": "boolean"
+                        },
+                        "price": {
+                              "title": "Price",
+                              "type": "number",
+                              "x-nullable": true
+                        },
+                        "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "x-nullable": true
+                        },
+                        "location": {
+                              "title": "Location",
+                              "type": "string",
+                              "maxLength": 255
+                        },
+                        "max_participants": {
+                              "title": "Max participants",
+                              "type": "integer",
+                              "x-nullable": true
+                        },
+                        "date": {
+                              "title": "Date",
+                              "type": "string",
+                              "format": "date"
+                        },
+                        "created_at": {
+                              "title": "Created at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        },
+                        "updated_at": {
+                              "title": "Updated at",
+                              "type": "string",
+                              "format": "date-time",
+                              "readOnly": true
+                        }
+                  }
+            },
+            "UpdateActivities": {
+                  "required": [
+                        "categories",
+                        "title",
+                        "date"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "categories": {
+                              "type": "array",
+                              "items": {
+                                    "$ref": "#/definitions/SimpleCategory"
+                              }
+                        },
+                        "title": {
+                              "title": "Title",
+                              "type": "string",
+                              "maxLength": 255,
+                              "minLength": 1
+                        },
+                        "photo": {
+                              "title": "Photo",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-nullable": true,
+                              "format": "uri"
+                        },
+                        "is_free": {
+                              "title": "Is free",
+                              "type": "boolean"
+                        },
+                        "price": {
+                              "title": "Price",
+                              "type": "number",
+                              "x-nullable": true
+                        },
+                        "description": {
+                              "title": "Description",
+                              "type": "string",
+                              "x-nullable": true
+                        },
+                        "location": {
+                              "title": "Location",
+                              "type": "string",
+                              "maxLength": 255
+                        },
+                        "max_participants": {
+                              "title": "Max participants",
+                              "type": "integer",
+                              "x-nullable": true
+                        },
+                        "date": {
+                              "title": "Date",
+                              "type": "string",
+                              "format": "date"
+                        }
+                  }
+            },
+            "TokenObtainPair": {
+                  "required": [
+                        "username",
+                        "password"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "username": {
+                              "title": "Username",
+                              "type": "string",
+                              "minLength": 1
+                        },
+                        "password": {
+                              "title": "Password",
+                              "type": "string",
+                              "minLength": 1
+                        }
+                  }
+            },
+            "TokenRefresh": {
+                  "required": [
+                        "refresh"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "refresh": {
+                              "title": "Refresh",
+                              "type": "string",
+                              "minLength": 1
+                        },
+                        "access": {
+                              "title": "Access",
+                              "type": "string",
+                              "readOnly": true,
+                              "minLength": 1
+                        }
+                  }
+            },
+            "TokenVerify": {
+                  "required": [
+                        "token"
+                  ],
+                  "type": "object",
+                  "properties": {
+                        "token": {
+                              "title": "Token",
+                              "type": "string",
+                              "minLength": 1
+                        }
+                  }
+            }
+      }
+
+}
