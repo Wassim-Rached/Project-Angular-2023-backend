@@ -178,6 +178,10 @@ CORS_ALLOW_HEADERS = [
 
 from datetime import timedelta
 
+Console.log("DJANGO_SECRET_KEY %s" % os.environ.get('DJANGO_SECRET_KEY'), Console.WARNING)
+Console.log("JWT_SIGNING_KEY %s" % os.environ.get('JWT_SIGNING_KEY'), Console.WARNING)
+Console.log("JWT_VERIFYING_KEY %s" % os.environ.get('JWT_VERIFYING_KEY'), Console.WARNING)
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(weeks=96),
     "REFRESH_TOKEN_LIFETIME": timedelta(weeks=96),
